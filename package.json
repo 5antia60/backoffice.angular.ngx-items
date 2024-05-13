@@ -6,9 +6,9 @@
     "type": "git",
     "url": "git+https://github.com/5antia60/backoffice.angular.ngx-items.git"
   },
-  "engines" : {
-    "npm" : "6.14.x",
-    "node" : "14.x"
+  "engines": {
+    "npm": "6.14.x",
+    "node": "14.x"
   },
   "scripts": {
     "ng": "ng",
@@ -34,8 +34,10 @@
     "@angular/common": "^15.2.10",
     "@angular/compiler": "^15.2.10",
     "@angular/core": "^15.2.10",
+    "@angular/fire": "^17.0.1",
     "@angular/forms": "^15.2.10",
     "@angular/google-maps": "^12.2.13",
+    "@angular/material": "^15.2.9",
     "@angular/platform-browser": "^15.2.10",
     "@angular/platform-browser-dynamic": "^15.2.10",
     "@angular/router": "^15.2.10",

@@ -1,13 +1,12 @@
-/**
- * @license
- * Copyright Akveo. All Rights Reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- */
-// The file contents for the current environment will overwrite these during build.
-// The build system defaults to the dev environment which uses `environment.ts`, but if you do
-// `ng build --env=prod` then `environment.prod.ts` will be used instead.
-// The list of which env maps to which file can be found in `.angular-cli.json`.
-
 export const environment = {
   production: false,
+  firebase: {
+    apiKey: 'AIzaSyAhCRycufkoPhdwdTTBNHmZ-UXum0iTSyU',
+    authDomain: 'ngx-items.firebaseapp.com',
+    databaseURL: 'https://ngx-items-default-rtdb.firebaseio.com',
+    projectId: 'ngx-items',
+    storageBucket: 'ngx-items.appspot.com',
+    messagingSenderId: '1048812958194',
+    appId: '1:1048812958194:web:0cb0edc5b58b327207fb6b',
+  },
 };
