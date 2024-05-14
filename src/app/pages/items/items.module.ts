@@ -6,7 +6,6 @@ import { UpdateItemComponent } from './items/update-item.component';
 import { ItemsComponent } from './items.component';
 import { ListItemsComponent } from './list-items/list-items.component';
 import { ListItemsModule } from './list-items/list-items.module';
-import { NotFoundComponent } from '../miscellaneous/not-found/not-found.component';
 
 @NgModule({
   imports: [
@@ -18,7 +17,6 @@ import { NotFoundComponent } from '../miscellaneous/not-found/not-found.componen
           { path: '', component: ListItemsComponent },
           { path: 'create', component: CreateItemComponent },
           { path: ':entityId', component: UpdateItemComponent },
-          { path: '**', component: NotFoundComponent },
         ],
       },
     ]),
