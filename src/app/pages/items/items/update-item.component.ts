@@ -5,8 +5,8 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { BaseItemComponent } from './base-item.component';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { getCrudErrors } from '../../../shared/functions';
+import { ItemsService } from '../../../services/items/items.service';
 
 //#endregion
 
@@ -21,12 +21,12 @@ export class UpdateItemComponent extends BaseItemComponent implements OnInit {
 
   constructor(
     protected readonly router: Router,
-    protected readonly toast: NbToastrService,
     formBuilder: FormBuilder,
     route: ActivatedRoute,
-    firestore: AngularFirestore,
+    itemsService: ItemsService,
+    toast: NbToastrService,
   ) {
-    super(formBuilder, route, firestore, toast);
+    super(formBuilder, route, itemsService, toast);
   }
 
   //#endregion
@@ -37,15 +37,12 @@ export class UpdateItemComponent extends BaseItemComponent implements OnInit {
     this.showLoading = true;
 
     const entityId = this.route.snapshot.paramMap.get('entityId');
+    const entity = await this.itemsService.getById(entityId);
 
-    this.form.doc(entityId)
-      .valueChanges()
-      .subscribe(item => {
-        this.formGroup.controls.name.setValue(item.name);
-        this.formGroup.controls.lastUpdate.setValue(item.lastUpdate);
-        this.formGroup.controls.description.setValue(item.description);
-        this.formGroup.controls.weight.setValue(item.weight);
-      });
+    this.formGroup.controls.name.setValue(entity.name);
+    this.formGroup.controls.lastUpdate.setValue(entity.lastUpdate);
+    this.formGroup.controls.description.setValue(entity.description);
+    this.formGroup.controls.weight.setValue(entity.weight);
 
     this.showLoading = false;
   }
@@ -60,7 +57,7 @@ export class UpdateItemComponent extends BaseItemComponent implements OnInit {
       const entityId = this.route.snapshot.paramMap.get('entityId');
       const payload = this.formGroup.getRawValue();
 
-      await this.form.doc(entityId).update(payload);
+      await this.itemsService.updateOne(entityId, payload);
 
       this.toast.success('Item atualizado com sucesso!', 'Sucesso');
       await this.router.navigateByUrl(this.backUrl);

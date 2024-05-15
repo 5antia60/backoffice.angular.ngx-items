@@ -1,10 +1,10 @@
 //#region Imports
 
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { ItemProxy } from '../../../models/proxies/item.proxy';
-import { Subscription } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { ItemsService } from '../../../services/items/items.service';
 
 //#endregion
 
@@ -12,28 +12,15 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
   selector: 'ngx-list-items',
   templateUrl: './list-items.component.html',
 })
-export class ListItemsComponent implements OnDestroy {
+export class ListItemsComponent implements OnInit {
 
   //#region Constructor
 
   constructor(
     protected readonly toast: NbToastrService,
     protected readonly firestore: AngularFirestore,
-  ) {
-    this.getItemsSubscription = this.firestore.collection('items').snapshotChanges().subscribe((items: any) => {
-      this.listItems = items.map(item => {
-        const itemId = item.payload.doc.id;
-        const itemData = item.payload.doc.data();
-
-        return {
-          id: itemId,
-          name: itemData.name,
-          lastUpdate: new Date(itemData.lastUpdate.seconds * 1000),
-          weight: itemData.weight,
-        };
-      });
-    });
-  }
+    protected readonly itemsService: ItemsService,
+  ) { }
 
   //#endregion
 
@@ -50,18 +37,12 @@ export class ListItemsComponent implements OnDestroy {
 
   //#endregion
 
-  //#region Private Properties
-
-  private getItemsSubscription: Subscription | any;
-
-  //#endregion
-
-  //#region Public Methods
-
-  public ngOnDestroy(): void {
-    this.getItemsSubscription.unsubscribe();
+  public async ngOnInit() {
+    try {
+      this.listItems = await this.itemsService.getAll();
+    } catch (error) {
+      this.toast.danger('Houve um erro ao carregar informações.', 'Oops...');
+    }
   }
-
-  //#endregion
 
 }

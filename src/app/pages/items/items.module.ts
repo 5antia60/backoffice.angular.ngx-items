@@ -6,6 +6,7 @@ import { UpdateItemComponent } from './items/update-item.component';
 import { ItemsComponent } from './items.component';
 import { ListItemsComponent } from './list-items/list-items.component';
 import { ListItemsModule } from './list-items/list-items.module';
+import { ItemsService } from '../../services/items/items.service';
 
 @NgModule({
   imports: [
@@ -23,8 +24,6 @@ import { ListItemsModule } from './list-items/list-items.module';
     ListItemsModule,
     ItemModule,
   ],
-  declarations: [
-    ItemsComponent,
-  ],
+  declarations: [ItemsComponent],
 })
 export class ItemsModule {}

@@ -8,9 +8,7 @@ import {
   NbButtonModule,
   NbCardModule,
   NbIconModule,
-  NbInputModule,
   NbPopoverModule,
-  NbSelectModule,
   NbSpinnerModule,
   NbTooltipModule,
 } from '@nebular/theme';
@@ -23,8 +21,6 @@ import { ListItemsComponent } from './list-items.component';
     NbCardModule,
     RouterModule,
     NbSpinnerModule,
-    NbInputModule,
-    NbSelectModule,
     FormsModule,
     NbTooltipModule,
     NbIconModule,

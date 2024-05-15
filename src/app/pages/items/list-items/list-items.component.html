@@ -12,10 +12,6 @@
       </div>
     </nb-card-header>
     <nb-card-body>
-      <div class="d-flex justify-content-center w-100 my-2" style="flex: 1;">
-        <input nbInput fullWidth shape="round" placeholder="Pesquisar por nome" #input>
-      </div>
-
       <table class="w-100" mat-table [dataSource]="listItems">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Nome</th>

@@ -5,8 +5,8 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { BaseItemComponent } from './base-item.component';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { getCrudErrors } from '../../../shared/functions';
+import { ItemsService } from '../../../services/items/items.service';
 
 //#endregion
 
@@ -21,12 +21,12 @@ export class CreateItemComponent extends BaseItemComponent {
 
   constructor(
     protected readonly router: Router,
-    protected readonly toast: NbToastrService,
     formBuilder: FormBuilder,
     route: ActivatedRoute,
-    firestore: AngularFirestore,
+    itemsService: ItemsService,
+    toast: NbToastrService,
   ) {
-    super(formBuilder, route, firestore, toast);
+    super(formBuilder, route, itemsService, toast);
   }
 
   //#endregion
@@ -41,7 +41,7 @@ export class CreateItemComponent extends BaseItemComponent {
 
     try {
       const payload = this.formGroup.getRawValue();
-      await this.form.add(payload);
+      await this.itemsService.createOne(payload);
 
       this.toast.success('Item criado com sucesso!', 'Sucesso');
       await this.router.navigateByUrl(this.backUrl);

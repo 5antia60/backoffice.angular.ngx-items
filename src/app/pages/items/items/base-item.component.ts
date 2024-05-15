@@ -4,8 +4,7 @@ import { Directive } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { ItemProxy } from '../../../models/proxies/item.proxy';
+import { ItemsService } from '../../../services/items/items.service';
 
 //#endregion
 
@@ -17,12 +16,10 @@ export class BaseItemComponent {
   constructor(
     protected readonly formBuilder: FormBuilder,
     protected readonly route: ActivatedRoute,
-    protected readonly firestore: AngularFirestore,
+    protected readonly itemsService: ItemsService,
     protected readonly toast: NbToastrService,
   ) {
     this.backUrl = '/pages/items';
-
-    this.form = this.firestore.collection('items');
     this.isUpdate = route.snapshot.paramMap.has('entityId');
 
     this.formGroup = formBuilder.group({
@@ -42,8 +39,6 @@ export class BaseItemComponent {
   public formGroup: FormGroup;
 
   public isUpdate: boolean = false;
-
-  public form: AngularFirestoreCollection<ItemProxy>;
 
   //endregion
 
