@@ -26,6 +26,8 @@ export class ListItemsComponent implements OnInit {
 
   //#region Public Properties
 
+  public isLoading: boolean = false;
+
   public listItems: ItemProxy[] = [];
 
   public displayedColumns: string[] = [
@@ -37,12 +39,43 @@ export class ListItemsComponent implements OnInit {
 
   //#endregion
 
-  public async ngOnInit() {
+  //#region Public Methods
+
+  public async ngOnInit(): Promise<void> {
+    await this.loadItems();
+  }
+
+  public async deleteItem(itemId: string): Promise<void> {
+    this.isLoading = true;
+
+    try {
+      await this.itemsService.deleteOne(itemId);
+      this.toast.success('O item foi excluido com sucesso.', 'Sucesso!');
+
+      await this.loadItems();
+    } catch (error) {
+      this.toast.danger('Houve um erro ao excluir o item.', 'Oops...');
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  //#endregion
+
+  //#region Private Methods
+
+  private async loadItems(): Promise<void> {
+    this.isLoading = true;
+
     try {
       this.listItems = await this.itemsService.getAll();
     } catch (error) {
       this.toast.danger('Houve um erro ao carregar informações.', 'Oops...');
+    } finally {
+      this.isLoading = false;
     }
   }
+
+  //#endregion
 
 }

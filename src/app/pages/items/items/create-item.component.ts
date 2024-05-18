@@ -5,7 +5,6 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { BaseItemComponent } from './base-item.component';
-import { getCrudErrors } from '../../../shared/functions';
 import { ItemsService } from '../../../services/items/items.service';
 
 //#endregion
@@ -46,7 +45,7 @@ export class CreateItemComponent extends BaseItemComponent {
       this.toast.success('Item criado com sucesso!', 'Sucesso');
       await this.router.navigateByUrl(this.backUrl);
     } catch (error) {
-      this.toast.danger(getCrudErrors(error)[0], 'Oops...');
+      this.toast.danger('Houve um erro ao criar o item', 'Oops...');
     } finally {
       this.showLoading = false;
     }

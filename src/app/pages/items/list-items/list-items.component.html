@@ -1,5 +1,5 @@
 <div class="w-100">
-  <nb-card [nbSpinner]="false">
+  <nb-card [nbSpinner]="isLoading">
     <nb-card-header class="d-flex flex-column flex-md-row">
       <div class="col-12 col-md-6 d-flex align-items-center px-0">
         Abaixo, a lista de itens registrados
@@ -37,6 +37,13 @@
                class="mx-2"
                [routerLink]="['/pages/items/', element.id]">
               <nb-icon icon="edit-outline"></nb-icon>
+            </a>
+            <a nbButton nbTooltip="Excluir item"
+               status="danger"
+               outline
+               class="mx-2"
+               (click)="deleteItem(element.id)">
+              <nb-icon icon="trash-2-outline"></nb-icon>
             </a>
           </td>
         </ng-container>

@@ -84,6 +84,14 @@ export class ItemsService {
     }
   }
 
+  public async deleteOne(itemId: string): Promise<void> {
+    try {
+      await this.form.doc(itemId).delete();
+    } catch (error) {
+      throw Error(getCrudErrors(error)[0]);
+    }
+  }
+
   //#endregion
 
 }
